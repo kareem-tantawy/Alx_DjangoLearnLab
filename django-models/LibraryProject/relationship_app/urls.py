@@ -9,3 +9,6 @@ urlpatterns = [
     path("logout/", user_logout, name="logout"),
     path("register/", user_register, name="register"),
 ]
+
+
+# "views.register", "LogoutView.as_view(template_name=", "LoginView.as_view(template_name="
