@@ -16,3 +16,8 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+    
+    
+class Librarian(models.Model):
+    name = models.CharField(max_length=50)
+    library = models.OneToOneField('Library', on_delete=models.CASCADE)
