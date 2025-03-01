@@ -18,10 +18,11 @@ def get_books_in_library(library_name):
     library = Library.objects.get(name=library_name)
     return library.books.all()
 
-# Query 3: Retrieve the librarian for a library
+# Query 3: Retrieve the librarian for a library (Fixed)
 def get_librarian_for_library(library_name):
     library = Library.objects.get(name=library_name)
-    return library.librarian
+    librarian = Librarian.objects.get(library=library)  # Fixed the query
+    return librarian
 
 # Sample Data Insertion (Optional)
 def populate_sample_data():
