@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import permission_required, user_passes_test
 
-from .forms import BookForm
+# from .forms import BookForm
 # Create your views here.
 
 
