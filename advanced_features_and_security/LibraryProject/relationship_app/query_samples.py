@@ -1,38 +1,46 @@
-# query_samples.py
+import django
+import os
 
-from relationship_app.models import Library, Book, Author, Librarian
+# Configure Django settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_models.settings')
+django.setup()
 
-# 1. Query all books by a specific author
+from relationship_app.models import Author, Book, Library, Librarian
+
+# Query 1: Get all books by a specific author
 def get_books_by_author(author_name):
-    try:
-        author = Author.objects.get(name=author_name)
-        books = Book.objects.filter(author=author)
-        return books
-    except Author.DoesNotExist:
-        return f"No author found with name {author_name}"
+    author = Author.objects.get(name=author_name)
+    books = Book.objects.filter(author=author)
+    return books
 
-# 2. List all books in a library
+# Query 2: List all books in a library
 def get_books_in_library(library_name):
-    try:
-        library = Library.objects.get(name=library_name)
-        books = library.books.all()  # Assuming `books` is a ManyToManyField in Library
-        return books
-    except Library.DoesNotExist:
-        return f"No library found with name {library_name}"
+    library = Library.objects.get(name=library_name)
+    return library.books.all()
 
-# 3. Retrieve the librarian for a library by querying Librarian model directly
+# Query 3: Retrieve the librarian for a library (Fixed)
 def get_librarian_for_library(library_name):
-    try:
-        library = Library.objects.get(name=library_name)
-        librarian = Librarian.objects.get(library=library)  # Explicitly using Librarian.objects.get with library instance
-        return librarian
-    except Library.DoesNotExist:
-        return f"No library found with name {library_name}"
-    except Librarian.DoesNotExist:
-        return f"No librarian found for the library {library_name}"
+    library = Library.objects.get(name=library_name)
+    librarian = Librarian.objects.get(library=library)  # Fixed the query
+    return librarian
 
-# Sample outputs for testing
-if __name__ == "__main__":
-    print(get_books_by_author("George Orwell"))
-    print(get_books_in_library("Central Library"))
-    print(get_librarian_for_library("Central Library"))
+# Sample Data Insertion (Optional)
+def populate_sample_data():
+    author1 = Author.objects.create(name="J.K. Rowling")
+    book1 = Book.objects.create(title="Harry Potter and the Philosopher's Stone", author=author1)
+    book2 = Book.objects.create(title="Harry Potter and the Chamber of Secrets", author=author1)
+    
+    library1 = Library.objects.create(name="Central Library")
+    library1.books.add(book1, book2)
+    
+    librarian1 = Librarian.objects.create(name="John Doe", library=library1)
+
+    print("Sample data added!")
+
+# Uncomment to populate data
+# populate_sample_data()
+
+# Uncomment to test queries
+# print(get_books_by_author("J.K. Rowling"))
+# print(get_books_in_library("Central Library"))
+# print(get_librarian_for_library("Central Library"))
