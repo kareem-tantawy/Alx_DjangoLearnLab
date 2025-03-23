@@ -24,6 +24,14 @@
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'posts' %}">Posts</a></li>
+                            {% if user.is_authenticated %}
+                                <form method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-custom" type="submit">Logout</button>
+                                </form>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                            {% endif %}
                         </ul>
                         {% comment %} <div class="d-flex flex-column flex-sm-row align-items-center gap-2">
                             {% if user.is_authenticated %}
