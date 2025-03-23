@@ -9,10 +9,10 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2']
         
-# class CustomUserChangeForm(forms.ModelForm):
-#     email = forms.EmailField()
+class CustomUserChangeForm(forms.ModelForm):
+    email = forms.EmailField()
     
-#     class Meta:
-#         model = CustomUser
-#         fields = ['username', 'email', 'image', 'bio']
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'image', 'bio']
         

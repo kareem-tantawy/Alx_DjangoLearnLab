@@ -17,5 +17,5 @@ urlpatterns = [
         name="logout",
     ),
     path('profile/', views.profile, name='profile'),
-    # path('profile/update', views.login, name='profile-update'),
+    path('profile/update', views.update_profile, name='profile-update'),
 ]
